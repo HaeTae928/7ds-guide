@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  // 마수전 공략 출력 함수 (티어표 이미지 렌더링 포함)
+ // 1. 마수전 공략 출력 함수 (추천 덱 텍스트 제거)
   function renderBeastInfo(beastKey) {
     const data = beastData[beastKey];
     if (!data) return;
@@ -215,11 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
           <h3 class="text-xl font-bold text-amber-400 mb-2">${data.name}</h3>
           <div class="flex flex-wrap gap-1.5">${stageBadges}</div>
         </div>
-      </div>
-      
-      <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
-        <span class="text-xs text-amber-400 font-bold block mb-1"><i class="fa-solid fa-users"></i> 대표 추천 덱 조합</span>
-        <p class="text-sm font-semibold text-slate-200">${data.recommendDeck}</p>
       </div>
 
       <div class="text-sm text-slate-300 leading-relaxed bg-slate-800/50 p-4 rounded-lg border border-slate-800 mb-4">
@@ -288,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const guildTabs = document.querySelectorAll('.guild-tab');
   const pveContent = document.getElementById('pve-content');
 
-  // 기사단 보스전 출력 함수
+  // 2. 기사단 보스전 출력 함수 (추천 덱 텍스트 제거)
   function renderGuildInfo(guildKey) {
     const data = guildData[guildKey];
     if (!data) return;
@@ -300,11 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
           <h3 class="text-xl font-bold text-amber-400">${data.name}</h3>
         </div>
       </div>
-      
-      <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
-        <span class="text-xs text-amber-400 font-bold block mb-1"><i class="fa-solid fa-users"></i> 추천 덱 조합</span>
-        <p class="text-sm font-semibold text-slate-200">${data.recommendDeck}</p>
-      </div>
 
       <div class="text-sm text-slate-300 leading-relaxed bg-slate-800/50 p-4 rounded-lg border border-slate-800">
         <span class="text-xs text-slate-400 font-bold block mb-2"><i class="fa-solid fa-circle-info"></i> 핵심 공략 요점</span>
@@ -313,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  // 기타 PVE 출력 함수
+  // 3. 기타 PVE 출력 함수 (추천 덱 텍스트 제거)
   function renderOtherPveInfo(pveKey) {
     const data = pveOtherData[pveKey];
     if (!data) return;
@@ -324,11 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <div>
           <h3 class="text-xl font-bold text-amber-400">${data.title}</h3>
         </div>
-      </div>
-
-      <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
-        <span class="text-xs text-amber-400 font-bold block mb-1"><i class="fa-solid fa-users"></i> 추천 덱 조합</span>
-        <p class="text-sm font-semibold text-slate-200">${data.deck}</p>
       </div>
 
       <div class="text-sm text-slate-300 leading-relaxed bg-slate-800/50 p-4 rounded-lg border border-slate-800">
