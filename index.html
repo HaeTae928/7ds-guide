@@ -38,24 +38,26 @@
   <!-- 메인 컨텐츠 영역 -->
   <main class="max-w-6xl mx-auto p-4 my-6">
 
-    <!-- [1] 신규 영웅 섹션 -->
-    <section id="all-section" class="content-section">
-      <div class="bg-slate-800 p-6 md:p-8 rounded-2xl border border-slate-700 shadow-xl">
-        <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-6">
-          <div>
-            <h1 class="text-2xl md:text-3xl font-bold text-amber-400 flex items-center gap-2">
-              <i class="fa-solid fa-sparkles"></i> 최신 신규 영웅 정보
-            </h1>
-            <p class="text-slate-400 text-xs md:text-sm mt-1">현재 픽업 중인 최신 영웅의 일러스트 및 상세 스킬 정보입니다.</p>
-          </div>
-          <span class="bg-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-full border border-amber-500/30">
-            PICK UP
-          </span>
+    <!-- 기본 화면: 주간 픽업 정보 및 신규 영웅 섹션 -->
+    <section id="pickup-section" class="content-section">
+      <!-- 픽업표 카드 -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-700">
+          <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+            <i class="fa-solid fa-star"></i> 주간 픽업 추천표
+          </h2>
+          <div id="weekly-tab-container" class="flex flex-wrap gap-2"></div>
         </div>
+        <div id="weekly-pickup-content" class="flex flex-col items-center"></div>
+      </div>
 
-        <!-- 동적으로 신규 영웅 레이아웃이 렌더링되는 영역 -->
-        <div id="new-hero-container" class="space-y-8">
-          <!-- main.js에서 카드가 생성됩니다 -->
+      <!-- 신규 영웅 정보 카드 영역 (추가) -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 mb-6">
+        <h2 class="text-xl font-bold text-amber-400 mb-4 pb-3 border-b border-slate-700 flex items-center gap-2">
+          <i class="fa-solid fa-user-plus"></i> 신규 / 콜라보 영웅 정보
+        </h2>
+        <div id="new-heroes-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- main.js에서 동적 생성됩니다 -->
         </div>
       </div>
     </section>
