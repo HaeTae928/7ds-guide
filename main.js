@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 
-  // 2. 전체 픽업표 (pickup.png) 렌더링 로직
+  // 2. 전체 픽업표 (픽업표/pickup.png) 렌더링 로직
   const pickupTableContent = document.getElementById('pickup-table-content');
 
   function renderPickupTable() {
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <i class="fa-solid fa-bell text-amber-400"></i> 전체 기간 추천 영웅 종합 픽업표입니다.
       </p>
       <div class="flex justify-center w-full">
-        <img src="픽업표/pickup.png" alt="전체 픽업표" class="max-w-full h-auto rounded-lg border border-slate-700 shadow-lg" onerror="this.alt='이미지를 찾을 수 없습니다: pickup.png'">
+        <img src="픽업표/pickup.png" alt="전체 픽업표" class="max-w-full h-auto rounded-lg border border-slate-700 shadow-lg" onerror="this.alt='이미지를 찾을 수 없습니다: 픽업표/pickup.png'">
       </div>
     `;
   }
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
   renderPickupTable();
 
 
-  // 3. 신규 영웅 데이터 및 화면 출력 로직
+  // 3. 신규 영웅 데이터 및 화면 출력 로직 ('신규영웅/' 폴더 경로)
   const newHeroesData = [
     {
       name: "【풍요의 여왕】 미의 여신 프레이야",
@@ -123,11 +123,11 @@ document.addEventListener('DOMContentLoaded', function() {
   renderNewHeroes();
 
 
-  // 4. 마수전 6종 데이터
+  // 4. 마수전 6종 데이터 ('마수전/영웅/' 폴더 경로)
   const beastData = {
     hresvelgr: {
       name: "🦅 흐레스벨그 마수전",
-      imgSrc: "마수전/흐레스벨그.png",
+      imgSrc: "흐레스벨그.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
       recommendDeck: "토르 / 메겔다 / UR 멜리오다스 / 얼티밋 이스탈린 / 다이앤",
       recommendHeroes: [
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     eikthyrnir: {
       name: "🦌 에이크쉬르니르 마수전",
-      imgSrc: "마수전/에이크쉬르니르.png",
+      imgSrc: "에이크쉬르니르.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
       recommendDeck: "요르문간드 / 프레이 / 빛엘리 / 다이앤",
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     skollhati: {
       name: "🐺 스콜과 하티 마수전",
-      imgSrc: "마수전/스콜과 하티.png",
+      imgSrc: "스콜과 하티.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
       recommendDeck: "도나르 / 탐나는 로키 트라브 / 프레이 / 마엘",
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     nidhoggr: {
       name: "🐍 니드호그 마수전",
-      imgSrc: "마수전/니드호그.png",
+      imgSrc: "니드호그.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수"],
       recommendDeck: "마엘 / 빛엘리 / 프레이야 / 마르가렛",
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     ratatoskr: {
       name: "🐿️ 라타토스크 마수전",
-      imgSrc: "마수전/라타토스크.png",
+      imgSrc: "라타토스크.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수"],
       recommendDeck: "발렌티 / 신각 킹 / 다이앤 / 엘리자베스",
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원
@@ -210,14 +210,14 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     surtr: {
       name: "🔥 수르트 & 태초의 불꽃",
-      imgSrc: "마수전/수르트&태초의 불꽃.png",
+      imgSrc: "수르트&태초의 불꽃.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수"],
       recommendDeck: "불구대천 멜리오다스 / 신각킹 / 여멜 / 여반",
       summary: "• 스펠 오브 케나즈 및 레바테인 기믹 파훼. 자세 해제 및 과열 해제 스킬 관리."
     }
   };
 
-  // 5. 기타 PVE 데이터
+  // 5. 기타 PVE 데이터 (마신왕전 / 최고신전)
   const pveOtherData = {
     demonking: {
       title: "👑 마신왕전 공략",
@@ -237,9 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 6. PVE 탭 전환 및 렌더링 로직
   const pveMainTabs = document.querySelectorAll('.pve-main-tab');
   const beastSubMenu = document.getElementById('beast-sub-menu');
-  const guildSubMenu = document.getElementById('guild-sub-menu');
   const beastTabs = document.querySelectorAll('.beast-tab');
-  const guildTabs = document.querySelectorAll('.guild-tab');
   const pveContent = document.getElementById('pve-content');
 
   function renderBeastInfo(beastKey) {
@@ -293,30 +291,6 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  function renderGuildInfo(guildKey) {
-    const data = guildData[guildKey];
-    if (!data || !pveContent) return;
-
-    pveContent.innerHTML = `
-      <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-5 border-b border-slate-700 pb-4">
-        <img src="${data.imgSrc}" alt="${data.name}" class="w-16 h-16 object-contain rounded-xl bg-slate-800 p-1 border border-slate-700" onerror="this.style.display='none'">
-        <div>
-          <h3 class="text-xl font-bold text-amber-400">${data.name}</h3>
-        </div>
-      </div>
-      
-      <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
-        <span class="text-xs text-amber-400 font-bold block mb-1"><i class="fa-solid fa-users"></i> 추천 덱 조합</span>
-        <p class="text-sm font-semibold text-slate-200">${data.recommendDeck}</p>
-      </div>
-
-      <div class="text-sm text-slate-300 leading-relaxed bg-slate-800/50 p-4 rounded-lg border border-slate-800">
-        <span class="text-xs text-slate-400 font-bold block mb-2"><i class="fa-solid fa-circle-info"></i> 핵심 공략 요점</span>
-        <p class="whitespace-pre-line">${data.summary}</p>
-      </div>
-    `;
-  }
-
   function renderOtherPveInfo(pveKey) {
     const data = pveOtherData[pveKey];
     if (!data || !pveContent) return;
@@ -354,7 +328,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (pveKey === 'beast') {
         if (beastSubMenu) beastSubMenu.classList.remove('hidden');
-        if (guildSubMenu) guildSubMenu.classList.add('hidden');
         renderBeastInfo('hresvelgr');
         beastTabs.forEach(t => {
           t.classList.remove('bg-amber-500', 'text-slate-950');
@@ -364,21 +337,8 @@ document.addEventListener('DOMContentLoaded', function() {
           beastTabs[0].classList.remove('bg-slate-700', 'text-slate-200');
           beastTabs[0].classList.add('bg-amber-500', 'text-slate-950');
         }
-      } else if (pveKey === 'guild') {
-        if (beastSubMenu) beastSubMenu.classList.add('hidden');
-        if (guildSubMenu) guildSubMenu.classList.remove('hidden');
-        renderGuildInfo('akumu');
-        guildTabs.forEach(t => {
-          t.classList.remove('bg-amber-500', 'text-slate-950');
-          t.classList.add('bg-slate-700', 'text-slate-200');
-        });
-        if (guildTabs[0]) {
-          guildTabs[0].classList.remove('bg-slate-700', 'text-slate-200');
-          guildTabs[0].classList.add('bg-amber-500', 'text-slate-950');
-        }
       } else {
         if (beastSubMenu) beastSubMenu.classList.add('hidden');
-        if (guildSubMenu) guildSubMenu.classList.add('hidden');
         renderOtherPveInfo(pveKey);
       }
     });
@@ -397,20 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  guildTabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      guildTabs.forEach(t => {
-        t.classList.remove('bg-amber-500', 'text-slate-950');
-        t.classList.add('bg-slate-700', 'text-slate-200');
-      });
-      this.classList.remove('bg-slate-700', 'text-slate-200');
-      this.classList.add('bg-amber-500', 'text-slate-950');
-
-      renderGuildInfo(this.getAttribute('data-guild'));
-    });
-  });
-
-  // 초기 상태 실행
+  // 초기 상태 실행 (기본 마수전 렌더링)
   renderBeastInfo('hresvelgr');
 
 });
