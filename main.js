@@ -36,69 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-
-  // 2. 주간/콜라보 픽업 데이터 관리
-  const weeklyPickupData = [
-    {
-      id: "p5r_collabo",
-      title: "🎭 페르소나 5 더 로열 콜라보",
-      imgSrc: "pickup_weekly.png",
-      note: "10/29 점검 후 신규 콜라보 개최! SSR 3종 픽업 & SR 모나 무료 배포"
-    },
-    {
-      id: "all",
-      title: "📋 전체 픽업표",
-      imgSrc: "pickup.png",
-      note: "전체 기간 추천 영웅 종합 픽업표입니다."
-    }
-  ];
-
-  const weeklyTabContainer = document.getElementById('weekly-tab-container');
-  const weeklyPickupContent = document.getElementById('weekly-pickup-content');
-
-  function renderWeeklyPickup(pickupId) {
-    const data = weeklyPickupData.find(item => item.id === pickupId) || weeklyPickupData[0];
-    if (!data || !weeklyPickupContent) return;
-
-    weeklyPickupContent.innerHTML = `
-      <p class="text-sm text-slate-300 mb-3 font-semibold"><i class="fa-solid fa-bell text-amber-400"></i> ${data.note}</p>
-      <div class="flex justify-center w-full">
-        <img src="${data.imgSrc}" alt="${data.title}" class="max-w-full h-auto rounded-lg border border-slate-700 shadow-lg" onerror="this.alt='이미지를 찾을 수 없습니다: ${data.imgSrc}'">
-      </div>
-    `;
-
-    if (weeklyTabContainer) {
-      const buttons = weeklyTabContainer.querySelectorAll('button');
-      buttons.forEach(btn => {
-        if (btn.getAttribute('data-id') === data.id) {
-          btn.className = "bg-amber-500 text-slate-950 px-3 py-1 rounded-md text-xs font-bold";
-        } else {
-          btn.className = "bg-slate-700 text-slate-300 px-3 py-1 rounded-md text-xs font-semibold hover:bg-slate-600";
-        }
-      });
-    }
-  }
-
-  function initWeeklyTabs() {
-    if (!weeklyTabContainer) return;
-    weeklyTabContainer.innerHTML = '';
-    
-    weeklyPickupData.forEach((item) => {
-      const btn = document.createElement('button');
-      btn.setAttribute('data-id', item.id);
-      btn.textContent = item.title;
-      btn.addEventListener('click', () => renderWeeklyPickup(item.id));
-      weeklyTabContainer.appendChild(btn);
-    });
-
-    if (weeklyPickupData.length > 0) {
-      renderWeeklyPickup(weeklyPickupData[0].id);
-    }
-  }
-
-  initWeeklyTabs();
-
-
   // 3. 신규 영웅 데이터 및 화면 출력 로직
   const newHeroesData = [
     {
