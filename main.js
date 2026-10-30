@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <i class="fa-solid fa-bell text-amber-400"></i> 전체 기간 추천 영웅 종합 픽업표입니다.
       </p>
       <div class="flex justify-center w-full">
-        <img src="pickup.png" alt="전체 픽업표" class="max-w-full h-auto rounded-lg border border-slate-700 shadow-lg" onerror="this.alt='이미지를 찾을 수 없습니다: pickup.png'">
+        <img src="픽업표/pickup.png" alt="전체 픽업표" class="max-w-full h-auto rounded-lg border border-slate-700 shadow-lg" onerror="this.alt='이미지를 찾을 수 없습니다: pickup.png'">
       </div>
     `;
   }
