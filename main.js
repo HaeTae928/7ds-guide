@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initWeeklyTabs();
 
 
-  // 3. 신규 영웅 데이터 배열 ('신규영웅/' 폴더 경로)
+  // 3. 신규 영웅 데이터 및 화면 출력 로직
   const newHeroesData = [
     {
       name: "【풍요의 여왕】 미의 여신 프레이야",
@@ -143,8 +143,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   ];
 
+  function renderNewHeroes() {
+    const container = document.getElementById('new-heroes-container');
+    if (!container) return;
 
-  // 4. 마수전 6종 데이터 ('마수전/영웅/' 폴더 경로 적용)
+    container.innerHTML = newHeroesData.map(hero => `
+      <div class="bg-slate-900/80 border border-slate-700 rounded-lg p-4 flex flex-col sm:flex-row gap-4 items-center">
+        <img src="${hero.mainImg}" alt="${hero.name}" class="w-24 h-32 object-cover rounded-md border border-slate-600" onerror="this.alt='이미지 업로드 대기중'">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[11px] px-2 py-0.5 rounded font-bold">${hero.badge}</span>
+            <span class="text-xs text-slate-400">${hero.type}</span>
+          </div>
+          <h3 class="text-base font-bold text-slate-100 mb-1">${hero.name}</h3>
+          <p class="text-xs text-amber-300/80 mb-2"><i class="fa-regular fa-clock"></i> ${hero.period}</p>
+          <p class="text-xs text-slate-300 leading-relaxed">${hero.summary}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderNewHeroes();
+
+
+  // 4. 마수전 6종 데이터
   const beastData = {
     hresvelgr: {
       name: "🦅 흐레스벨그 마수전",
