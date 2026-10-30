@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   
-  // 1. 상단 네비게이션 메뉴 관련 기능
+  // 1. 상단 메뉴 및 페이지 전환 로직
   const navButtons = document.querySelectorAll('.nav-btn');
   const sections = document.querySelectorAll('.content-section');
   const logoBtn = document.getElementById('logo-btn');
@@ -32,11 +32,74 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (logoBtn) {
     logoBtn.addEventListener('click', function() {
-      showSection('all-section');
+      showSection('pickup-section');
     });
   }
 
-  // 2. 신규 영웅 데이터 배열 ('신규영웅/' 폴더 경로 적용)
+
+  // 2. 주간/콜라보 픽업 데이터 관리
+  const weeklyPickupData = [
+    {
+      id: "p5r_collabo",
+      title: "🎭 페르소나 5 더 로열 콜라보",
+      imgSrc: "pickup_weekly.png",
+      note: "10/29 점검 후 신규 콜라보 개최! SSR 3종 픽업 & SR 모나 무료 배포"
+    },
+    {
+      id: "all",
+      title: "📋 전체 픽업표",
+      imgSrc: "pickup.png",
+      note: "전체 기간 추천 영웅 종합 픽업표입니다."
+    }
+  ];
+
+  const weeklyTabContainer = document.getElementById('weekly-tab-container');
+  const weeklyPickupContent = document.getElementById('weekly-pickup-content');
+
+  function renderWeeklyPickup(pickupId) {
+    const data = weeklyPickupData.find(item => item.id === pickupId) || weeklyPickupData[0];
+    if (!data || !weeklyPickupContent) return;
+
+    weeklyPickupContent.innerHTML = `
+      <p class="text-sm text-slate-300 mb-3 font-semibold"><i class="fa-solid fa-bell text-amber-400"></i> ${data.note}</p>
+      <div class="flex justify-center w-full">
+        <img src="${data.imgSrc}" alt="${data.title}" class="max-w-full h-auto rounded-lg border border-slate-700 shadow-lg" onerror="this.alt='이미지를 찾을 수 없습니다: ${data.imgSrc}'">
+      </div>
+    `;
+
+    if (weeklyTabContainer) {
+      const buttons = weeklyTabContainer.querySelectorAll('button');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-id') === data.id) {
+          btn.className = "bg-amber-500 text-slate-950 px-3 py-1 rounded-md text-xs font-bold";
+        } else {
+          btn.className = "bg-slate-700 text-slate-300 px-3 py-1 rounded-md text-xs font-semibold hover:bg-slate-600";
+        }
+      });
+    }
+  }
+
+  function initWeeklyTabs() {
+    if (!weeklyTabContainer) return;
+    weeklyTabContainer.innerHTML = '';
+    
+    weeklyPickupData.forEach((item) => {
+      const btn = document.createElement('button');
+      btn.setAttribute('data-id', item.id);
+      btn.textContent = item.title;
+      btn.addEventListener('click', () => renderWeeklyPickup(item.id));
+      weeklyTabContainer.appendChild(btn);
+    });
+
+    if (weeklyPickupData.length > 0) {
+      renderWeeklyPickup(weeklyPickupData[0].id);
+    }
+  }
+
+  initWeeklyTabs();
+
+
+  // 3. 신규 영웅 데이터 배열 ('신규영웅/' 폴더 경로)
   const newHeroesData = [
     {
       name: "【풍요의 여왕】 미의 여신 프레이야",
@@ -80,137 +143,163 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   ];
 
-  // 3. 신규 영웅 카드 출력 함수 (높이 및 세로선 수평 통일)
-  function renderNewHeroes() {
-    const heroContainer = document.getElementById('new-hero-container');
-    if (!heroContainer) return;
 
-    heroContainer.innerHTML = `
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        ${newHeroesData.map(hero => `
-          <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5 flex flex-col justify-between hover:border-amber-500/50 transition-all shadow-xl h-full">
-            
-            <!-- 상단 헤더 영역 -->
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="text-xs font-bold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded border border-amber-400/20">${hero.type}</span>
-                <span class="text-xs font-bold bg-amber-500 text-slate-950 px-2.5 py-1 rounded-lg border border-amber-400">${hero.badge}</span>
-              </div>
-
-              <h2 class="text-lg font-bold text-slate-100 mb-2 h-14 flex items-center leading-snug line-clamp-2">
-                ${hero.name}
-              </h2>
-              
-              <div class="flex items-center gap-1.5 text-[11px] text-amber-300 bg-amber-500/10 px-2.5 py-1.5 rounded-lg border border-amber-500/20 mb-4 w-full justify-center">
-                <i class="fa-regular fa-clock shrink-0"></i>
-                <span class="font-medium truncate">${hero.period}</span>
-              </div>
-            </div>
-
-            <!-- 메인 일러스트 이미지 -->
-            <div class="bg-white rounded-xl p-2 border border-slate-700 mb-4 flex justify-center items-center overflow-hidden cursor-zoom-in group h-80" onclick="openModal('${hero.mainImg}')">
-              <img src="${hero.mainImg}" alt="${hero.name}" class="w-full h-full object-contain mx-auto group-hover:scale-105 transition-transform" onerror="this.style.display='none'">
-            </div>
-
-            <!-- 핵심 카드 요약 -->
-            <p class="text-xs text-slate-300 bg-slate-800/80 p-3 rounded-lg border border-slate-700/80 leading-relaxed h-20 overflow-y-auto">
-              💡 ${hero.summary}
-            </p>
-
-          </div>
-        `).join('')}
-      </div>
-    `;
-  }
-
-  // 4. 원본 이미지 확대 라이트박스 팝업
-  window.openModal = function(src) {
-    let modal = document.getElementById('img-modal');
-    if (!modal) {
-      modal = document.createElement('div');
-      modal.id = 'img-modal';
-      modal.className = 'fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out hidden';
-      modal.onclick = () => modal.classList.add('hidden');
-      modal.innerHTML = `
-        <div class="relative max-w-5xl max-h-[90vh] overflow-auto rounded-xl bg-white p-2">
-          <img id="modal-img" src="" class="w-full h-auto object-contain mx-auto">
-          <button class="absolute top-3 right-3 bg-slate-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow">&times;</button>
-        </div>
-      `;
-      document.body.appendChild(modal);
-    }
-    document.getElementById('modal-img').src = src;
-    modal.classList.remove('hidden');
-  };
-
- // 2. 마수전 데이터 ('마수전/' 폴더 경로 및 추천영웅 티어표 이미지 적용)
+  // 4. 마수전 6종 데이터 ('마수전/영웅/' 폴더 경로 적용)
   const beastData = {
-    // 마수전 흐레스벨그 예시
-  hresvelgr: {
-    name: "🦅 흐레스벨그 마수전",
-    imgSrc: "흐레스벨그.png",
-    stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
-    recommendDeck: "토르 / 메겔다 / UR 멜리오다스 / 얼티밋 이스탈린 / 다이앤",
-    // 마수전/영웅/ 폴더 경로 적용
-    recommendHeroes: [
-      { name: "티르", img: "마수전/영웅/티르.png" },
-      { name: "메겔다", img: "마수전/영웅/메겔다.png" },
-      { name: "토르", img: "마수전/영웅/토르.png" },
-      { name: "UR 멜리오다스", img: "마수전/영웅/멜리오다스.png" }
-    ],
-    summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
+    hresvelgr: {
+      name: "🦅 흐레스벨그 마수전",
+      imgSrc: "흐레스벨그.png",
+      stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
+      recommendDeck: "토르 / 메겔다 / UR 멜리오다스 / 얼티밋 이스탈린 / 다이앤",
+      recommendHeroes: [
+        { name: "티르", img: "마수전/영웅/티르.png" },
+        { name: "메겔다", img: "마수전/영웅/메겔다.png" },
+        { name: "토르", img: "마수전/영웅/토르.png" },
+        { name: "UR 멜리오다스", img: "마수전/영웅/멜리오다스.png" }
+      ],
+      summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
 
 [기본 설정 및 특성]
 • 악연 효과: 파티에 토르 편성 시 토르 치명 피해 30% 증가, 아군 영웅 기본 능력치 10% 증가
-• 마수 특징: 디버프 면역 / 아군의 생명력을 제외한 생명 관련 능력 40% 감소`
-  },
+• 마수 특징: 디버프 면역 / 아군의 생명력을 제외한 생명 관련 능력 40% 감소
+
+[1층 (마수)]
+• 3페이즈: 마수 50% 브레이크
+• 4페이즈: 마수 50% 브레이크, 방어력 및 인내율 크게 증가
+
+[2층 (대마수)]
+• 1페이즈: 마수 50% 브레이크
+• 2페이즈: 매 턴 강력한 전체기 사용(도발 중인 아군 존재 시 회피), 사망 시 방어력 100% 체력으로 부활
+
+[3층 (초마수)]
+• 1~2페이즈: 마수 50% 브레이크
+• 3페이즈: 마수 35% 브레이크, 매 적군 턴마다 아군 스킬 타입 봉쇄 (자세 > 디버프 > 버프 > 공격 > 필살기)
+• 4페이즈: 마수 35% 브레이크, 2턴마다 아군 공격력 40% 감소 & 공격스킬만 사용 가능 디버프 부여
+
+[4층 (초월마수)]
+• 1페이즈: 마수 20% 브레이크, 아군 디버프 1개당 마수 방어력 50% 증가
+• 2페이즈: 마수 20% 브레이크, 랭크 2 이상 동일 랭크 스킬 3장 사용 시 [흐레스벨그의 가호] 부여 (가호 보유 시 주피 300% 증가 및 회복 불가 패턴 빗나감)
+• 3페이즈: 마수 25% 브레이크, 불사가 8개 부여 (뇌격/낙뢰/증폭/강격 피격 시 1개 해제, 쇄도 피격 시 1개 증가), 치명타 미발생 시 마수 주피증 / 발생 시 2개 해제, 스킬 타입 순차 봉쇄
+• 4페이즈: 마수 25% 브레이크, 치명타 여부에 따라 마수 주피증/해제, 마수 남은 체력 구간별 능력치 증가 & [흐레스벨그의 분노] 디버프 부여 (7개 중첩 시 500,000 피해)`
+    },
     eikthyrnir: {
       name: "🦌 에이크쉬르니르 마수전",
-      imgSrc: "마수전/에이크쉬르니르.png",
-      tierImg: "마수전/에이크쉬르니르-추천영웅.jpg",
+      imgSrc: "에이크쉬르니르.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
       recommendDeck: "요르문간드 / 프레이 / 빛엘리 / 다이앤",
-      summary: "• 속성 순환 사이클 (근➔체➔속) 관리 및 요르문간드 성물 활용"
+      summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
+
+[기본 설정 및 특성]
+• 악연 효과: 파티에 요르문간드 편성 시 요르문간드 모든 능력치 10% 증가, 아군 영웅 기본 능력치 10% 증가
+• 마수 특징: 디버프 및 반사 피해 면역 / 회피 무시 / 1~3층 아군 생명 제외 생명 관련 능력 40% 감소
+• 속성 사이클: {근➔체➔속} or {체➔속➔근} or {속➔근➔체} 순 스킬 사용 (마수 자세 시 사이클 성공하면 자세 해제)
+• 피해 고정: 피해 고정 적용 시 모든 피해를 1로 받음`
     },
     skollhati: {
       name: "🐺 스콜과 하티 마수전",
-      imgSrc: "마수전/스콜과 하티.png",
-      tierImg: "마수전/스콜과 하티-추천영웅.jpg",
+      imgSrc: "스콜과 하티.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
       recommendDeck: "도나르 / 탐나는 로키 트라브 / 프레이 / 마엘",
-      summary: "• 두 마리 게이지 균등 감소 및 햇빛/달빛 버프 교대 관리"
+      summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
+
+[기본 설정 및 특성]
+• 악연 효과: 파티에 도나르 편성 시 도나르 모든 능력치 20% 증가 및 각 페이즈 시작 시 아군 스킬 랭크 업
+• 마수 구분: 하양(4층 노랑) = [스콜] / 검정 = [하티]
+• 마수 특징: 디버프 면역 / 1~3층은 특이 기믹 없이 두 마리 체력 균등 관리 및 디버프 해제 위주 공략`
     },
     nidhoggr: {
       name: "🐍 니드호그 마수전",
-      imgSrc: "마수전/니드호그.png",
-      // 니드호그는 종족별 이미지가 여러 개이므로 대표 이미지 지정 (필요시 교체)
-      tierImg: "마수전/니드호그-추천영웅.여신.jpg", 
+      imgSrc: "니드호그.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수"],
       recommendDeck: "마엘 / 빛엘리 / 프레이야 / 마르가렛",
-      summary: "• 자세 해제 스킬 필수 사용 및 단계별 불사 게이지 조절"
+      summary: `[진행 규칙] 1~3층 Auto(소탕) 지원
+
+[기본 설정 및 특성]
+• 패시브 특성: 아군의 생명력을 제외한 생명 관련 능력 40% 감소
+• 핵심 요점: 자세 해제 스킬 필수 배치 / 각 층·페이즈별 불사게이지증감 스킬 및 약점 종류 숙지`
     },
     ratatoskr: {
       name: "🐿️ 라타토스크 마수전",
-      imgSrc: "마수전/라타토스크.png",
-      tierImg: "마수전/라타토스크-추천영웅.jpg",
+      imgSrc: "라타토스크.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수"],
       recommendDeck: "발렌티 / 신각 킹 / 다이앤 / 엘리자베스",
-      summary: "• 통나무 위치별 디버프 관리 및 특수 기믹 파훼"
+      summary: `[진행 규칙] 1~3층 Auto(소탕) 지원
+
+[기본 설정 및 특성]
+• 패시브 특성: 아군의 생명 제외 생명 관련 능력 40% 감소 / 통나무 효과는 마수 위치 시 마수에도 적용
+• 핵심 메커니즘: 디버프 종류 및 개수에 따른 마수의 통나무 위치 이동 / 디버프 면역 아군 존재 시 턴 시작/다음 페이즈 이동 때 아군 버프 해제`
     },
     surtr: {
       name: "🔥 수르트 & 태초의 불꽃",
-      imgSrc: "마수전/수르트&태초의 불꽃.png",
-      tierImg: "", // 수르트는 이미지 업로드 시 파일명 입력
+      imgSrc: "수르트&태초의 불꽃.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수"],
       recommendDeck: "불구대천 멜리오다스 / 신각킹 / 여멜 / 여반",
-      summary: "• 자세 해제 및 과열 스택 해제 위주 속전속결"
+      summary: "• 스펠 오브 케나즈 및 레바테인 기믹 파훼. 자세 해제 및 과열 해제 스킬 관리."
     }
   };
 
- // 마수전 공략 출력
+  // 5. 기사단 보스전 데이터
+  const guildData = {
+    akumu: {
+      name: "👹 아쿠무 (기사단 보스)",
+      imgSrc: "아쿠무.png",
+      recommendDeck: "고서 / 젤드리스 / 지왕 멜리오다스 / 에스타로사",
+      summary: "• 시즌 미션 조건(디버프 부여 및 점수작)을 우선 파악하여 스킬 순서를 배치하는 것이 핵심입니다."
+    },
+    kelak: {
+      name: "⚔️ 켈라크 (기사단 보스)",
+      imgSrc: "켈라크.png",
+      recommendDeck: "더 윈 메이저 / 빛엘리 / 고서 / 프레이",
+      summary: "• 단일 누적 딜 점수 산출이 중요하므로 딜 버프 스킬 중첩 타이밍을 노려 필살기를 사용합니다."
+    },
+    eineck: {
+      name: "🛡️ 에이네크 (기사단 보스)",
+      imgSrc: "에이네크.png",
+      recommendDeck: "체력 속성 중심 극딜 조합",
+      summary: "• 방어력 감소 및 디버프 중첩을 통한 파쇄 극딜 딜타이밍 확보가 핵심입니다."
+    },
+    belgius: {
+      name: "⚡ 베르기우스 (기사단 보스)",
+      imgSrc: "베르기우스.png",
+      recommendDeck: "자세 해제 및 버프 해제 스킬 보유 조합",
+      summary: "• 베르기우스의 버프와 반격 자세를 적절히 해제하면서 미션 점수를 챙깁니다."
+    },
+    canopus: {
+      name: "🌟 카노푸스 (기사단 보스)",
+      imgSrc: "카노푸스.png",
+      recommendDeck: "신각 킹 / 빛엘리 / 마엘 / 고서",
+      summary: "• 광역 스킬 기반 딜링 및 신성 버프 관리가 고득점의 포인트입니다."
+    }
+  };
+
+  // 6. 기타 PVE 데이터
+  const pveOtherData = {
+    demonking: {
+      title: "👑 마신왕전 공략",
+      imgSrc: "마신왕.png",
+      deck: "지왕 멜리오다스 / 빛엘리 / 고서 / 젤드리스",
+      summary: "마신왕의 와일드 카운트 기믹을 계산하여 카드 이동 및 연쇄 스킬 사용 타이밍을 맞추는 것이 핵심입니다."
+    },
+    supreme: {
+      title: "✨ 최고신전 공략",
+      imgSrc: "boss.png",
+      deck: "최고신 전용 특수 패시브 대응 조합",
+      summary: "은총 및 신성 버프 해제 타이밍과 궁극기 차단 패턴 관리가 공략의 핵심입니다."
+    }
+  };
+
+
+  // 7. PVE 탭 전환 및 렌더링 로직
+  const pveMainTabs = document.querySelectorAll('.pve-main-tab');
+  const beastSubMenu = document.getElementById('beast-sub-menu');
+  const guildSubMenu = document.getElementById('guild-sub-menu');
+  const beastTabs = document.querySelectorAll('.beast-tab');
+  const guildTabs = document.querySelectorAll('.guild-tab');
+  const pveContent = document.getElementById('pve-content');
+
   function renderBeastInfo(beastKey) {
     const data = beastData[beastKey];
-    if (!data) return;
+    if (!data || !pveContent) return;
 
     const stageBadges = data.stages.map(stage => {
       const isTranscendent = stage.includes("초월마수");
@@ -220,7 +309,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return `<span class="border text-xs font-semibold px-2.5 py-1 rounded-md ${badgeStyle}">${stage}</span>`;
     }).join(' ');
 
-    // 추천 영웅 가로 목록 생성
     let heroIconsHtml = '';
     if (data.recommendHeroes && data.recommendHeroes.length > 0) {
       heroIconsHtml = `
@@ -249,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
         <span class="text-xs text-amber-400 font-bold block mb-1"><i class="fa-solid fa-users"></i> 추천 덱 조합</span>
-        <p class="text-sm font-semibold text-slate-200 mb-1">${data.recommendDeck}</p>
+        <p class="text-sm font-semibold text-slate-200">${data.recommendDeck}</p>
         ${heroIconsHtml}
       </div>
 
@@ -259,98 +347,10 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
   }
-    // 티어표 이미지 영역
-    const tierImgHtml = data.tierImg ? `
-      <div class="mt-4 bg-slate-800 p-4 rounded-xl border border-slate-700">
-        <span class="text-xs text-amber-400 font-bold block mb-3 flex items-center gap-1.5">
-          <i class="fa-solid fa-list-check"></i> 마수전 추천 영웅 티어표
-        </span>
-        <div class="bg-white rounded-lg p-2 border border-slate-600 cursor-zoom-in overflow-hidden flex justify-center group" onclick="openModal('${data.tierImg}')">
-          <img src="${data.tierImg}" alt="${data.name} 추천 영웅" class="max-h-[450px] w-auto object-contain mx-auto group-hover:scale-102 transition-transform" onerror="this.parentElement.style.display='none'">
-        </div>
-        <p class="text-[11px] text-slate-400 text-center mt-2">* 이미지를 클릭하시면 원본으로 크게 보실 수 있습니다.</p>
-      </div>
-    ` : '';
 
-    pveContent.innerHTML = `
-      <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-5 border-b border-slate-700 pb-4">
-        <img src="${data.imgSrc}" alt="${data.name}" class="w-16 h-16 object-contain rounded-xl bg-slate-800 p-1 border border-slate-700" onerror="this.style.display='none'">
-        <div>
-          <h3 class="text-xl font-bold text-amber-400 mb-2">${data.name}</h3>
-          <div class="flex flex-wrap gap-1.5">${stageBadges}</div>
-        </div>
-      </div>
-
-      <div class="text-sm text-slate-300 leading-relaxed bg-slate-800/50 p-4 rounded-lg border border-slate-800 mb-4">
-        <span class="text-xs text-slate-400 font-bold block mb-2"><i class="fa-solid fa-circle-info"></i> 핵심 공략 요점</span>
-        <p class="whitespace-pre-line">${data.summary}</p>
-      </div>
-
-      ${tierImgHtml}
-    `;
-  }
-
-  // 6. 기사단 보스전 데이터 ('기사단 보스전/' 폴더 경로 적용)
-  const guildData = {
-    akumu: {
-      name: "👹 아쿠무 (기사단 보스)",
-      imgSrc: "기사단 보스전/아쿠무.png",
-      recommendDeck: "고서 / 젤드리스 / 지왕 멜리오다스 / 에스타로사",
-      summary: "• 디버프 미션 및 스킬 순서 조절을 통한 고득점 산출"
-    },
-    kelak: {
-      name: "⚔️ 켈라크 (기사단 보스)",
-      imgSrc: "기사단 보스전/켈라크.png",
-      recommendDeck: "더 윈 메이저 / 빛엘리 / 고서 / 프레이",
-      summary: "• 딜 버프 중첩 타이밍을 노려 누적 폭딜"
-    },
-    eineck: {
-      name: "🛡️ 에이네크 (기사단 보스)",
-      imgSrc: "기사단 보스전/에이네크.png",
-      recommendDeck: "체력 속성 중심 극딜 조합",
-      summary: "• 방어력 감소 디버프 기반 타격"
-    },
-    belgius: {
-      name: "⚡ 베르기우스 (기사단 보스)",
-      imgSrc: "기사단 보스전/베르기우스.png",
-      recommendDeck: "자세 해제 및 버프 해제 조합",
-      summary: "• 베르기우스의 버프 및 반격 자세 해제"
-    },
-    canopus: {
-      name: "🌟 카노푸스 (기사단 보스)",
-      imgSrc: "기사단 보스전/카노푸스.png",
-      recommendDeck: "신각 킹 / 빛엘리 / 마엘 / 고서",
-      summary: "• 광역 스킬 중심의 신성 버프 해제 관리"
-    }
-  };
-
-  // 7. 기타 PVE 데이터 ('마신왕전/', '최고신전/' 폴더 경로 적용)
-  const pveOtherData = {
-    demonking: {
-      title: "👑 마신왕전 공략",
-      imgSrc: "마신왕전/마신왕.png",
-      deck: "지왕 멜리오다스 / 빛엘리 / 고서 / 젤드리스",
-      summary: "마신왕의 규율 스킬 조건을 맞춰 패시브 스택을 무력화하는 것이 핵심입니다."
-    },
-    supreme: {
-      title: "✨ 최고신전 공략",
-      imgSrc: "최고신전/boss.png",
-      deck: "최고신 전용 특수 패시브 대응 조합",
-      summary: "은총 버프 해제 타이밍 및 궁극기 차단 패턴 대응이 핵심입니다."
-    }
-  };
-
-  const pveMainTabs = document.querySelectorAll('.pve-main-tab');
-  const beastSubMenu = document.getElementById('beast-sub-menu');
-  const guildSubMenu = document.getElementById('guild-sub-menu');
-  const beastTabs = document.querySelectorAll('.beast-tab');
-  const guildTabs = document.querySelectorAll('.guild-tab');
-  const pveContent = document.getElementById('pve-content');
-
-  // 2. 기사단 보스전 출력 함수 (추천 덱 텍스트 제거)
   function renderGuildInfo(guildKey) {
     const data = guildData[guildKey];
-    if (!data) return;
+    if (!data || !pveContent) return;
 
     pveContent.innerHTML = `
       <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-5 border-b border-slate-700 pb-4">
@@ -358,6 +358,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <div>
           <h3 class="text-xl font-bold text-amber-400">${data.name}</h3>
         </div>
+      </div>
+      
+      <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
+        <span class="text-xs text-amber-400 font-bold block mb-1"><i class="fa-solid fa-users"></i> 추천 덱 조합</span>
+        <p class="text-sm font-semibold text-slate-200">${data.recommendDeck}</p>
       </div>
 
       <div class="text-sm text-slate-300 leading-relaxed bg-slate-800/50 p-4 rounded-lg border border-slate-800">
@@ -367,10 +372,9 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  // 3. 기타 PVE 출력 함수 (추천 덱 텍스트 제거)
   function renderOtherPveInfo(pveKey) {
     const data = pveOtherData[pveKey];
-    if (!data) return;
+    if (!data || !pveContent) return;
 
     pveContent.innerHTML = `
       <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-5 border-b border-slate-700 pb-4">
@@ -380,6 +384,11 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
 
+      <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
+        <span class="text-xs text-amber-400 font-bold block mb-1"><i class="fa-solid fa-users"></i> 추천 덱 조합</span>
+        <p class="text-sm font-semibold text-slate-200">${data.deck}</p>
+      </div>
+
       <div class="text-sm text-slate-300 leading-relaxed bg-slate-800/50 p-4 rounded-lg border border-slate-800">
         <span class="text-xs text-slate-400 font-bold block mb-2"><i class="fa-solid fa-circle-info"></i> 핵심 공략 요점</span>
         <p>${data.summary}</p>
@@ -387,7 +396,6 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  // PVE 메인 카테고리 탭 클릭 이벤트
   pveMainTabs.forEach(tab => {
     tab.addEventListener('click', function() {
       pveMainTabs.forEach(t => {
@@ -400,34 +408,37 @@ document.addEventListener('DOMContentLoaded', function() {
       const pveKey = this.getAttribute('data-pve');
 
       if (pveKey === 'beast') {
-        beastSubMenu.classList.remove('hidden');
-        guildSubMenu.classList.add('hidden');
+        if (beastSubMenu) beastSubMenu.classList.remove('hidden');
+        if (guildSubMenu) guildSubMenu.classList.add('hidden');
         renderBeastInfo('hresvelgr');
         beastTabs.forEach(t => {
           t.classList.remove('bg-amber-500', 'text-slate-950');
           t.classList.add('bg-slate-700', 'text-slate-200');
         });
-        beastTabs[0].classList.remove('bg-slate-700', 'text-slate-200');
-        beastTabs[0].classList.add('bg-amber-500', 'text-slate-950');
+        if (beastTabs[0]) {
+          beastTabs[0].classList.remove('bg-slate-700', 'text-slate-200');
+          beastTabs[0].classList.add('bg-amber-500', 'text-slate-950');
+        }
       } else if (pveKey === 'guild') {
-        beastSubMenu.classList.add('hidden');
-        guildSubMenu.classList.remove('hidden');
+        if (beastSubMenu) beastSubMenu.classList.add('hidden');
+        if (guildSubMenu) guildSubMenu.classList.remove('hidden');
         renderGuildInfo('akumu');
         guildTabs.forEach(t => {
           t.classList.remove('bg-amber-500', 'text-slate-950');
           t.classList.add('bg-slate-700', 'text-slate-200');
         });
-        guildTabs[0].classList.remove('bg-slate-700', 'text-slate-200');
-        guildTabs[0].classList.add('bg-amber-500', 'text-slate-950');
+        if (guildTabs[0]) {
+          guildTabs[0].classList.remove('bg-slate-700', 'text-slate-200');
+          guildTabs[0].classList.add('bg-amber-500', 'text-slate-950');
+        }
       } else {
-        beastSubMenu.classList.add('hidden');
-        guildSubMenu.classList.add('hidden');
+        if (beastSubMenu) beastSubMenu.classList.add('hidden');
+        if (guildSubMenu) guildSubMenu.classList.add('hidden');
         renderOtherPveInfo(pveKey);
       }
     });
   });
 
-  // 마수전 세부 탭 클릭 이벤트
   beastTabs.forEach(tab => {
     tab.addEventListener('click', function() {
       beastTabs.forEach(t => {
@@ -441,7 +452,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // 기사단 세부 탭 클릭 이벤트
   guildTabs.forEach(tab => {
     tab.addEventListener('click', function() {
       guildTabs.forEach(t => {
@@ -455,8 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // 초기 시작 렌더링
-  renderNewHeroes();
+  // 초기 상태 실행
   renderBeastInfo('hresvelgr');
 
 });
