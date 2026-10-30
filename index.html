@@ -8,44 +8,50 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen">
+<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100 min-h-screen">
 
-  <!-- 상단 헤더 & 네비게이션 -->
-  <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
+  <!-- 상단 헤더 (글래스모피즘 적용) -->
+  <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-700/80 sticky top-0 z-50 shadow-lg">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div id="logo-btn" class="flex items-center gap-3 cursor-pointer">
-        <img src="logo.png" alt="로고" class="h-8 object-contain" onerror="this.style.display='none'">
-        <span class="font-bold text-lg text-amber-400">GRANDCROSS PVE</span>
+      <div id="logo-btn" class="flex items-center gap-3 cursor-pointer group">
+        <img src="logo.png" alt="로고" class="h-8 object-contain transition-transform group-hover:scale-105" onerror="this.style.display='none'">
+        <span class="font-extrabold text-lg bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500 bg-clip-text text-transparent">GRANDCROSS PVE</span>
       </div>
       
-      <!-- 상단 3개 메인 메뉴 -->
-      <nav class="flex items-center gap-6 font-semibold">
-        <button data-target="pickup-hero-section" class="nav-btn text-amber-400 border-b-2 border-amber-400 pb-1 hover:text-amber-300">신규/콜라보 영웅</button>
-        <button data-target="pickup-table-section" class="nav-btn text-slate-300 pb-1 hover:text-amber-400">픽업표</button>
-        <button data-target="pve-section" class="nav-btn text-slate-300 pb-1 hover:text-amber-400">PVE 공략</button>
+      <!-- 상단 메인 메뉴 -->
+      <nav class="flex items-center gap-6 font-bold text-sm">
+        <button data-target="pickup-hero-section" class="nav-btn text-amber-400 border-b-2 border-amber-400 pb-1 flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+          <i class="fa-solid fa-fire text-amber-400"></i> 신규/콜라보 영웅
+        </button>
+        <button data-target="pickup-table-section" class="nav-btn text-slate-400 pb-1 flex items-center gap-1.5 hover:text-amber-400 transition-colors">
+          <i class="fa-solid fa-calendar-days"></i> 픽업표
+        </button>
+        <button data-target="pve-section" class="nav-btn text-slate-400 pb-1 flex items-center gap-1.5 hover:text-amber-400 transition-colors">
+          <i class="fa-solid fa-shield-halved"></i> PVE 공략
+        </button>
       </nav>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-4 py-6">
+  <main class="max-w-6xl mx-auto px-4 py-8">
     
     <!-- 1. 신규 / 콜라보 영웅 정보 섹션 -->
     <section id="pickup-hero-section" class="content-section">
-      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 mb-6">
-        <h2 class="text-xl font-bold text-amber-400 mb-4 pb-3 border-b border-slate-700 flex items-center gap-2">
-          <i class="fa-solid fa-user-plus"></i> 신규 / 콜라보 영웅 정보
+      <div class="bg-slate-800/60 backdrop-blur-sm border border-slate-700/80 rounded-2xl p-6 shadow-2xl">
+        <h2 class="text-xl font-bold text-amber-400 mb-5 pb-3 border-b border-slate-700/80 flex items-center gap-2.5">
+          <i class="fa-solid fa-burst text-amber-400"></i> 신규 / 콜라보 영웅 정보
         </h2>
         <div id="new-heroes-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- main.js에서 영웅 카드가 동적 생성됩니다 -->
+          <!-- main.js에서 카드가 동적 생성됩니다 -->
         </div>
       </div>
     </section>
 
-    <!-- 2. 전체 픽업표 섹션 (pickup.png 전용) -->
+    <!-- 2. 전체 픽업표 섹션 -->
     <section id="pickup-table-section" class="content-section hidden">
-      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 mb-6">
-        <h2 class="text-xl font-bold text-amber-400 mb-4 pb-3 border-b border-slate-700 flex items-center gap-2">
-          <i class="fa-solid fa-list-check"></i> 일곱개의 대죄 캘린더
+      <div class="bg-slate-800/60 backdrop-blur-sm border border-slate-700/80 rounded-2xl p-6 shadow-2xl">
+        <h2 class="text-xl font-bold text-amber-400 mb-5 pb-3 border-b border-slate-700/80 flex items-center gap-2.5">
+          <i class="fa-solid fa-list-check text-amber-400"></i> 일곱개의 대죄 캘린더
         </h2>
         <div id="pickup-table-content" class="flex flex-col items-center">
           <!-- main.js에서 pickup.png 이미지가 표시됩니다 -->
@@ -56,25 +62,24 @@
     <!-- 3. PVE 공략 섹션 -->
     <section id="pve-section" class="content-section hidden">
       <!-- PVE 메인 탭 -->
-      <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-700 pb-3">
-        <button data-pve="beast" class="pve-main-tab bg-amber-500 text-slate-950 px-4 py-2 rounded-lg font-bold">마수전</button>
-        <button data-pve="guild" class="pve-main-tab bg-slate-700 text-slate-200 px-4 py-2 rounded-lg font-bold hover:bg-slate-600">기사단 보스전</button>
-        <button data-pve="demonking" class="pve-main-tab bg-slate-700 text-slate-200 px-4 py-2 rounded-lg font-bold hover:bg-slate-600">마신왕전</button>
-        <button data-pve="supreme" class="pve-main-tab bg-slate-700 text-slate-200 px-4 py-2 rounded-lg font-bold hover:bg-slate-600">최고신전</button>
+      <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-700/80 pb-3">
+        <button data-pve="beast" class="pve-main-tab bg-amber-500 text-slate-950 px-4 py-2 rounded-lg font-bold shadow-md shadow-amber-500/20">마수전</button>
+        <button data-pve="demonking" class="pve-main-tab bg-slate-800 text-slate-300 px-4 py-2 rounded-lg font-bold hover:bg-slate-700 transition-colors">마신왕전</button>
+        <button data-pve="supreme" class="pve-main-tab bg-slate-800 text-slate-300 px-4 py-2 rounded-lg font-bold hover:bg-slate-700 transition-colors">최고신전</button>
       </div>
 
       <!-- 마수전 서브 메뉴 -->
       <div id="beast-sub-menu" class="flex flex-wrap gap-2 mb-6">
-        <button data-beast="hresvelgr" class="beast-tab bg-amber-500 text-slate-950 px-3 py-1.5 rounded-md text-sm font-semibold">흐레스벨그</button>
-        <button data-beast="eikthyrnir" class="beast-tab bg-slate-700 text-slate-200 px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-slate-600">에이크쉬르니르</button>
-        <button data-beast="skollhati" class="beast-tab bg-slate-700 text-slate-200 px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-slate-600">스콜과 하티</button>
-        <button data-beast="nidhoggr" class="beast-tab bg-slate-700 text-slate-200 px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-slate-600">니드호그</button>
-        <button data-beast="ratatoskr" class="beast-tab bg-slate-700 text-slate-200 px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-slate-600">라타토스크</button>
-        <button data-beast="surtr" class="beast-tab bg-slate-700 text-slate-200 px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-slate-600">수르트&태초의 불꽃</button>
+        <button data-beast="hresvelgr" class="beast-tab bg-amber-500 text-slate-950 px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-sm">흐레스벨그</button>
+        <button data-beast="eikthyrnir" class="beast-tab bg-slate-800 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-slate-700 transition-colors">에이크쉬르니르</button>
+        <button data-beast="skollhati" class="beast-tab bg-slate-800 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-slate-700 transition-colors">스콜과 하티</button>
+        <button data-beast="nidhoggr" class="beast-tab bg-slate-800 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-slate-700 transition-colors">니드호그</button>
+        <button data-beast="ratatoskr" class="beast-tab bg-slate-800 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-slate-700 transition-colors">라타토스크</button>
+        <button data-beast="surtr" class="beast-tab bg-slate-800 text-slate-300 px-3.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-slate-700 transition-colors">수르트&태초의 불꽃</button>
       </div>
 
-      <!-- 동적 공략 상세 카드 출력 영역 -->
-      <div id="pve-content" class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl"></div>
+      <!-- 동적 공략 상세 카드 -->
+      <div id="pve-content" class="bg-slate-800/60 backdrop-blur-sm border border-slate-700/80 rounded-2xl p-6 shadow-2xl"></div>
     </section>
 
   </main>
