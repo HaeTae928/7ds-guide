@@ -32,17 +32,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (logoBtn) {
     logoBtn.addEventListener('click', function() {
-      showSection('pickup-section');
+      showSection('pickup-hero-section');
     });
   }
 
-  // 2. 전체 픽업표 이미지 노출 (pickup.png)
-  const weeklyPickupContent = document.getElementById('weekly-pickup-content');
 
-  function renderPickupImage() {
-    if (!weeklyPickupContent) return;
+  // 2. 전체 픽업표 (pickup.png) 렌더링 로직
+  const pickupTableContent = document.getElementById('pickup-table-content');
 
-    weeklyPickupContent.innerHTML = `
+  function renderPickupTable() {
+    if (!pickupTableContent) return;
+
+    pickupTableContent.innerHTML = `
       <p class="text-sm text-slate-300 mb-3 font-semibold">
         <i class="fa-solid fa-bell text-amber-400"></i> 전체 기간 추천 영웅 종합 픽업표입니다.
       </p>
@@ -52,7 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  renderPickupImage();
+  renderPickupTable();
+
 
   // 3. 신규 영웅 데이터 및 화면 출력 로직
   const newHeroesData = [
