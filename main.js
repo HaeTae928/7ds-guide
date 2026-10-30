@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
- // 1. 마수전 공략 출력 함수 (추천 덱 텍스트 제거)
+ // 마수전 공략 출력
   function renderBeastInfo(beastKey) {
     const data = beastData[beastKey];
     if (!data) return;
@@ -221,6 +221,45 @@ document.addEventListener('DOMContentLoaded', function() {
       return `<span class="border text-xs font-semibold px-2.5 py-1 rounded-md ${badgeStyle}">${stage}</span>`;
     }).join(' ');
 
+    // 추천 영웅 가로 목록 생성
+    let heroIconsHtml = '';
+    if (data.recommendHeroes && data.recommendHeroes.length > 0) {
+      heroIconsHtml = `
+        <div class="mt-3 pt-3 border-t border-slate-700/60">
+          <span class="text-xs text-slate-400 font-bold block mb-2"><i class="fa-solid fa-shield-halved"></i> 추천 영웅 구성</span>
+          <div class="flex flex-wrap items-center gap-3">
+            ${data.recommendHeroes.map(hero => `
+              <div class="flex flex-col items-center gap-1 group">
+                <img src="${hero.img}" alt="${hero.name}" class="w-12 h-12 rounded-lg border border-slate-600 object-cover shadow-md transition-transform group-hover:scale-105" onerror="this.src='logo.png'">
+                <span class="text-[11px] font-medium text-slate-300">${hero.name}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    pveContent.innerHTML = `
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-5 border-b border-slate-700 pb-4">
+        <img src="${data.imgSrc}" alt="${data.name}" class="w-16 h-16 object-contain rounded-xl bg-slate-800 p-1 border border-slate-700" onerror="this.style.display='none'">
+        <div>
+          <h3 class="text-xl font-bold text-amber-400 mb-2">${data.name}</h3>
+          <div class="flex flex-wrap gap-1.5">${stageBadges}</div>
+        </div>
+      </div>
+      
+      <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
+        <span class="text-xs text-amber-400 font-bold block mb-1"><i class="fa-solid fa-users"></i> 추천 덱 조합</span>
+        <p class="text-sm font-semibold text-slate-200 mb-1">${data.recommendDeck}</p>
+        ${heroIconsHtml}
+      </div>
+
+      <div class="text-sm text-slate-300 leading-relaxed bg-slate-800/50 p-4 rounded-lg border border-slate-800">
+        <span class="text-xs text-slate-400 font-bold block mb-2"><i class="fa-solid fa-circle-info"></i> 핵심 공략 요점</span>
+        <p class="whitespace-pre-line">${data.summary}</p>
+      </div>
+    `;
+  }
     // 티어표 이미지 영역
     const tierImgHtml = data.tierImg ? `
       <div class="mt-4 bg-slate-800 p-4 rounded-xl border border-slate-700">
