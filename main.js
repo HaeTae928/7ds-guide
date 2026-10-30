@@ -132,9 +132,9 @@ document.addEventListener('DOMContentLoaded', function() {
       recommendDeck: "토르 / 메겔다 / UR 멜리오다스 / 얼티밋 이스탈린 / 다이앤",
       recommendHeroes: [
         { name: "티르", img: "마수전/영웅/티르.png" },
-        { name: "메겔다", img: "마수전/영웅/메겔다.png" },
+        { name: "메겔다", img: "마수전/영웅/시온.png" },
         { name: "토르", img: "마수전/영웅/토르.png" },
-        { name: "UR 멜리오다스", img: "마수전/영웅/멜리오다스.png" }
+        { name: "UR 멜리오다스", img: "마수전/영웅/멀린.png" }
       ],
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
 
@@ -165,7 +165,13 @@ document.addEventListener('DOMContentLoaded', function() {
       name: "🦌 에이크쉬르니르 마수전",
       imgSrc: "에이크쉬르니르.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
-      recommendDeck: "요르문간드 / 프레이 / 빛엘리 / 다이앤",
+      recommendDeck: "요르문간드 / 프레이 /토르 / 티르",
+recommendHeroes: [
+        { name: "티르", img: "마수전/영웅/티르.png" },
+        { name: "메겔다", img: "마수전/영웅/요르문간드.png" },
+        { name: "토르", img: "마수전/영웅/토르.png" },
+        { name: "UR 멜리오다스", img: "마수전/영웅/프레이.png" }
+      ],
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
 
 [기본 설정 및 특성]
