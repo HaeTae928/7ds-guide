@@ -217,41 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  // 5. 기사단 보스전 데이터
-  const guildData = {
-    akumu: {
-      name: "👹 아쿠무 (기사단 보스)",
-      imgSrc: "아쿠무.png",
-      recommendDeck: "고서 / 젤드리스 / 지왕 멜리오다스 / 에스타로사",
-      summary: "• 시즌 미션 조건(디버프 부여 및 점수작)을 우선 파악하여 스킬 순서를 배치하는 것이 핵심입니다."
-    },
-    kelak: {
-      name: "⚔️ 켈라크 (기사단 보스)",
-      imgSrc: "켈라크.png",
-      recommendDeck: "더 윈 메이저 / 빛엘리 / 고서 / 프레이",
-      summary: "• 단일 누적 딜 점수 산출이 중요하므로 딜 버프 스킬 중첩 타이밍을 노려 필살기를 사용합니다."
-    },
-    eineck: {
-      name: "🛡️ 에이네크 (기사단 보스)",
-      imgSrc: "에이네크.png",
-      recommendDeck: "체력 속성 중심 극딜 조합",
-      summary: "• 방어력 감소 및 디버프 중첩을 통한 파쇄 극딜 딜타이밍 확보가 핵심입니다."
-    },
-    belgius: {
-      name: "⚡ 베르기우스 (기사단 보스)",
-      imgSrc: "베르기우스.png",
-      recommendDeck: "자세 해제 및 버프 해제 스킬 보유 조합",
-      summary: "• 베르기우스의 버프와 반격 자세를 적절히 해제하면서 미션 점수를 챙깁니다."
-    },
-    canopus: {
-      name: "🌟 카노푸스 (기사단 보스)",
-      imgSrc: "카노푸스.png",
-      recommendDeck: "신각 킹 / 빛엘리 / 마엘 / 고서",
-      summary: "• 광역 스킬 기반 딜링 및 신성 버프 관리가 고득점의 포인트입니다."
-    }
-  };
-
-  // 6. 기타 PVE 데이터
+  // 5. 기타 PVE 데이터
   const pveOtherData = {
     demonking: {
       title: "👑 마신왕전 공략",
@@ -268,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
 
-  // 7. PVE 탭 전환 및 렌더링 로직
+  // 6. PVE 탭 전환 및 렌더링 로직
   const pveMainTabs = document.querySelectorAll('.pve-main-tab');
   const beastSubMenu = document.getElementById('beast-sub-menu');
   const guildSubMenu = document.getElementById('guild-sub-menu');
