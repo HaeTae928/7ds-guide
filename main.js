@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const beastData = {
     hresvelgr: {
       name: "🦅 흐레스벨그 마수전",
-      imgSrc: "흐레스벨그.png",
+      imgSrc: "마수전/흐레스벨그.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
       recommendDeck: "토르 / 메겔다 / UR 멜리오다스 / 얼티밋 이스탈린 / 다이앤",
       recommendHeroes: [
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     eikthyrnir: {
       name: "🦌 에이크쉬르니르 마수전",
-      imgSrc: "에이크쉬르니르.png",
+      imgSrc: "마수전/에이크쉬르니르.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
       recommendDeck: "요르문간드 / 프레이 / 빛엘리 / 다이앤",
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     skollhati: {
       name: "🐺 스콜과 하티 마수전",
-      imgSrc: "스콜과 하티.png",
+      imgSrc: "마수전/스콜과 하티.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
       recommendDeck: "도나르 / 탐나는 로키 트라브 / 프레이 / 마엘",
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     nidhoggr: {
       name: "🐍 니드호그 마수전",
-      imgSrc: "니드호그.png",
+      imgSrc: "마수전/니드호그.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수"],
       recommendDeck: "마엘 / 빛엘리 / 프레이야 / 마르가렛",
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     ratatoskr: {
       name: "🐿️ 라타토스크 마수전",
-      imgSrc: "라타토스크.png",
+      imgSrc: "마수전/라타토스크.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수"],
       recommendDeck: "발렌티 / 신각 킹 / 다이앤 / 엘리자베스",
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     surtr: {
       name: "🔥 수르트 & 태초의 불꽃",
-      imgSrc: "수르트&태초의 불꽃.png",
+      imgSrc: "마수전/수르트&태초의 불꽃.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수"],
       recommendDeck: "불구대천 멜리오다스 / 신각킹 / 여멜 / 여반",
       summary: "• 스펠 오브 케나즈 및 레바테인 기믹 파훼. 자세 해제 및 과열 해제 스킬 관리."
