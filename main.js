@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
       name: "🦅 흐레스벨그 마수전",
       imgSrc: "흐레스벨그.png",
       stages: ["1층: 마수", "2층: 대마수", "3층: 초마수", "4층: 초월마수"],
-      recommendDeck: "토르 / 메겔다 / UR 멜리오다스 / 얼티밋 이스탈린 / 다이앤",
+      recommendDeck: "티르 / 시온 / 토르 /  멀린",
       recommendHeroes: [
         { name: "티르", img: "마수전/영웅/티르.png" },
         { name: "메겔다", img: "마수전/영웅/시온.png" },
