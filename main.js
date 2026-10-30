@@ -132,9 +132,9 @@ document.addEventListener('DOMContentLoaded', function() {
       recommendDeck: "티르 / 시온 / 토르 /  멀린",
       recommendHeroes: [
         { name: "티르", img: "마수전/영웅/티르.png" },
-        { name: "메겔다", img: "마수전/영웅/시온.png" },
+        { name: "시온", img: "마수전/영웅/시온.png" },
         { name: "토르", img: "마수전/영웅/토르.png" },
-        { name: "UR 멜리오다스", img: "마수전/영웅/멀린.png" }
+        { name: "LR 멀린", img: "마수전/영웅/멀린.png" }
       ],
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
 
@@ -168,9 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
       recommendDeck: "요르문간드 / 프레이 /토르 / 티르",
 recommendHeroes: [
         { name: "티르", img: "마수전/영웅/티르.png" },
-        { name: "메겔다", img: "마수전/영웅/요르문간드.png" },
+        { name: "요르문간드", img: "마수전/영웅/요르문간드.png" },
         { name: "토르", img: "마수전/영웅/토르.png" },
-        { name: "UR 멜리오다스", img: "마수전/영웅/프레이.png" }
+        { name: "LR 프레이", img: "마수전/영웅/프레이.png" }
       ],
       summary: `[진행 규칙] 1~3층 Auto(소탕) 지원 / 4층 초월마수 무제한 도전 가능
 
